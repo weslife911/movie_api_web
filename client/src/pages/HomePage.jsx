@@ -1,8 +1,14 @@
-import React from 'react'
 import Pagination from '../components/Pagination'
-import { Link } from 'react-router-dom'
+import MovieBox from "../components/MovieBox"
+import { useSelector } from 'react-redux'
+import { getMovies } from '../redux/movieSlice'
 
 function HomePage() {
+
+	const movies = useSelector(getMovies);
+
+	console.log(movies);
+
   return (
     <main className="main-content">
 				<div className="container">
@@ -23,11 +29,9 @@ function HomePage() {
 							</select>
 						</div>
 						<div className="movie-list">
-							<div className="movie">
-								<figure className="movie-poster"><img src="dummy/thumb-3.jpg" alt="#"/></figure>
-								<div className="movie-title"><Link to={`/movie/1`}>Maleficient</Link></div>
-								<p>Sed ut perspiciatis unde omnis iste natus error voluptatem doloremque.</p>
-							</div>
+							{movies.map((movie) => (
+								<MovieBox key={movie._id} movie={movie} />
+							))}
 						</div>
 
 						<Pagination/>
